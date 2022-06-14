@@ -96,4 +96,73 @@ public class ProcessAddressBook {
         System.out.println("\n Your details are successfully edited in Address book");
     }
 
+    void deleteDetails() {
+
+        System.out.println("\n You have chosen to remove the existing contact details.\n");
+        System.out.println("To delete the details");
+        AddressBookContacts varDelete = isDetailsMatched();
+        if (varDelete == null)
+            return;
+
+        contactArray.remove(varDelete);
+        System.out.println("Record was Deleted");
+    }
+
+    void displayAddedDetails(AddressBookContacts toDisplayDetails) {
+
+        System.out.println(toDisplayDetails);
+    }
+
+    void displayPersonDetails() {
+
+        System.out.println("\n To print the details");
+        AddressBookContacts varPrint = isDetailsMatched();
+        if (varPrint == null)
+            return;
+
+        displayAddedDetails(varPrint);
+    }
+
+    AddressBookContacts isDetailsMatched() {
+
+        System.out.print("Enter the first name of the person : ");
+        String editName = scanner.next();
+        AddressBookContacts tempRefVar;
+
+        for (int index = 0; index < contactArray.size(); index++) {
+            String name = contactArray.get(index).getFirstName();
+            if ((name.equals(editName))) {
+                tempRefVar = contactArray.get(index);
+                System.out.println("\n Match found \n ");
+                return tempRefVar;
+            }
+        }
+
+        System.out.println("Invalid input, Please try again");
+        return null;
+    }
+
+    void printChoices() {
+
+        System.out.println("\n \n Welcome to Address Book Program.");
+        System.out.println("These are the actions you can perform in the Address book");
+        System.out.println("1. Adding a new contact details.");
+        System.out.println("2. Printing a existing contact details.");
+        System.out.println("3. Editing a existing contact.");
+        System.out.println("4. Deleting a existing contact.");
+    }
+
+    void displayTermination() {
+
+        System.out.println("Your program is Terminated.");
+    }
+
+
+    public void takingInputOverWhileLoop() {
+
+        printChoices();
+        System.out.println(" \n Enter a number between 1 to 4 to run any one of the functionality and 5 to terminate : \n");
+        System.out.print("your choice : ");
+        choiceOfUsers = choice.nextInt();
+    }
 }
