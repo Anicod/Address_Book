@@ -51,5 +51,49 @@ public class ProcessAddressBook {
         System.out.println("\n Your details are successfully added in Address book");
 
     }
+    void editDetails() {
+
+        System.out.println("\n You have chosen to update the existing contact details.\n");
+        System.out.println("To edit the details");
+        AddressBookContacts varEdit = isDetailsMatched();
+        if (varEdit == null)
+            return;
+
+        System.out.print("Enter contact's first name : ");
+        String firstName = scanner.next();
+        varEdit.setFirstName(firstName);
+
+        System.out.print("Enter contact's last name : ");
+        String lastName = scanner.next();
+        varEdit.setLastName(lastName);
+
+        System.out.print("Enter contact's address : ");
+        scanner.nextLine();
+        String address = scanner.nextLine();
+        varEdit.setAddress(address);
+
+        System.out.print("Enter contact's city : ");
+        String city = scanner.next();
+        varEdit.setCity(city);
+
+        System.out.print("Enter contact's state : ");
+        String state = scanner.next();
+        varEdit.setState(state);
+
+        System.out.print("Enter contact's zip code : ");
+        int zipCode = scanner.nextInt();
+        varEdit.setZipCode(zipCode);
+
+        System.out.print("Enter contact's phone number : ");
+        long phoneNumber = scanner.nextLong();
+        varEdit.setPhoneNumber(phoneNumber);
+
+        System.out.print("Enter contact's email : ");
+        scanner.nextLine();
+        String email = scanner.nextLine();
+        varEdit.setEmail(email);
+
+        System.out.println("\n Your details are successfully edited in Address book");
+    }
 
 }
