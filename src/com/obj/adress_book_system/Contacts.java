@@ -1,6 +1,6 @@
 package com.obj.adress_book_system;
 
-public class AddressBookContacts {
+public class Contacts {
 
     private String firstName;
     private String lastName;
@@ -11,7 +11,7 @@ public class AddressBookContacts {
     private long phoneNumber;
     private String email;
 
-    public AddressBookContacts(String firstName, String lastName, String address, String city, String state, int zipCode, long phoneNumber, String email) {
+    public Contacts(String firstName, String lastName, String address, String city, String state, int zipCode, long phoneNumber, String email) {
 
         this.firstName = firstName;
         this.lastName = lastName;
