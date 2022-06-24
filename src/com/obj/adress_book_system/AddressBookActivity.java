@@ -11,47 +11,64 @@ public class AddressBookActivity {
     public int choiceOfUsers;
 
     Scanner scanner = new Scanner(System.in);
-    Map<String, ArrayList<Contacts>> multipleAddressBookMap = new HashMap<>();
+    Map<String, ArrayList<Contacts>> multipleAddressBook = new HashMap<>();
     ArrayList<Contacts> contactArray;
     Contacts addressBookContacts;
     Scanner choice = new Scanner(System.in);
-        void addDetails() {
-            System.out.println("\n You have chosen to Add a new contact details.\n");
-            System.out.print("Enter contact's first name : ");
-            String firstName = scanner.next();
-            System.out.println("Enter contact's last name : ");
-            String lastName = scanner.next();
-            System.out.println("Enter contact's address : ");
-            String address = scanner.next();
-            System.out.println("Enter contact's city : ");
-            String city = scanner.next();
-            System.out.println("Enter contact's state : ");
-            String state = scanner.next();
-            System.out.println("Enter contact's zip code : ");
-            int zipCode = scanner.nextInt();
-            System.out.println("Enter contact's phone number : ");
-            long phoneNumber = scanner.nextLong();
-            System.out.println("Enter contact's email : ");
-            String email = scanner.next();
-            addressBookContacts = new Contacts(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
-            System.out.println("\n Your details are successfully added in Address book");
-            System.out.println("how many books you want to add");
-                System.out.println("enter the name of the book ");
-                String bookName = scanner.next();
-            if (multipleAddressBookMap.containsKey(bookName)) {
-                multipleAddressBookMap.get(bookName).add(addressBookContacts);
-                System.out.println("Contact added successfully in existing book :"  + bookName);
-            }
-            else {
-                contactArray = new ArrayList<>();
-                contactArray.add(addressBookContacts);
-                multipleAddressBookMap.put(bookName, contactArray);
-                System.out.println("Successfully created book " + bookName);
-                System.out.println("New contact added in the new arraylist in new address book " + bookName);
-            }
-                displayAddedDetails(addressBookContacts);
 
+    void addDetails() {
+        System.out.println("\n You have chosen to Add a new contact details.\n");
+        System.out.print("Enter contact's first name : ");
+        String firstName = scanner.next();
+        System.out.println("Enter contact's last name : ");
+        String lastName = scanner.next();
+        System.out.println("Enter contact's address : ");
+        String address = scanner.next();
+        System.out.println("Enter contact's city : ");
+        String city = scanner.next();
+        System.out.println("Enter contact's state : ");
+        String state = scanner.next();
+        System.out.println("Enter contact's zip code : ");
+        int zipCode = scanner.nextInt();
+        System.out.println("Enter contact's phone number : ");
+        long phoneNumber = scanner.nextLong();
+        System.out.println("Enter contact's email : ");
+        String email = scanner.next();
+        addressBookContacts = new Contacts(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
+        System.out.println("\n Your details are successfully added in Address book");
+
+        System.out.println("enter the name of the book ");
+        String bookName = scanner.next();
+        if (multipleAddressBook.containsKey(bookName)) {
+            String isFirstName = addressBookContacts.getFirstName();
+            Contacts issearched = multipleAddressBook
+                    .get(bookName)
+                    .stream()
+                    .filter(contacts -> contacts.equals(contacts.getFirstName().equals(isFirstName)))
+                    .findFirst()
+                    .orElse(null);
+
+            if (issearched != null) {
+                System.out.println("\n Match found, duplicate Entry \n ");
+                return;
+            }
+            System.out.println("Contact not found in the existing address book, No duplicate Entry will be there. \n");
+            multipleAddressBook.get(bookName).add(addressBookContacts);
         }
+        if (multipleAddressBook.containsKey(bookName)) {
+            multipleAddressBook.get(bookName).add(addressBookContacts);
+            System.out.println("Contact added successfully in existing book :" + bookName);
+        } else {
+            contactArray = new ArrayList<>();
+            contactArray.add(addressBookContacts);
+            multipleAddressBook.put(bookName, contactArray);
+            System.out.println("Successfully created book " + bookName);
+            System.out.println("New contact added in the new arraylist in new address book " + bookName);
+        }
+        displayAddedDetails(addressBookContacts);
+
+    }
+
     void editDetails() {
 
         System.out.println("\n You have chosen to update the existing contact details.\n");
@@ -129,22 +146,14 @@ public class AddressBookActivity {
         displayAllAddressBooksName();
         System.out.println("entered Your choice: ");
         String bookName = scanner.next();
-        Iterator<Contacts>iterator = contactArray.iterator();
         System.out.println("entered first name of the person");
         String inputName = scanner.next();
-        ArrayList<Contacts> tempMapValue = multipleAddressBookMap.get(bookName);
-        Contacts tempRefVar;
-
-        while (iterator.hasNext()){
-            if ((tempMapValue.iterator().next().getFirstName().equals(inputName))) {
-                tempRefVar = tempMapValue.iterator().next();
-                System.out.println("\n Match found \n ");
-                return tempRefVar;
-            }
-        }
-        System.out.println("Invalid input, Please try again");
-        return null;
+       if( multipleAddressBook.get(bookName).stream().iterator().next().getFirstName().equals(inputName)){
+           System.out.println("match found");
+       }
+       return multipleAddressBook.get(bookName).stream().iterator().next();
     }
+
 
     void printChoices() {
 
@@ -171,6 +180,14 @@ public class AddressBookActivity {
     }
 
     void displayAllAddressBooksName() {
-        multipleAddressBookMap.forEach((key, value) -> System.out.println(key));
+        multipleAddressBook.forEach((key, value) -> System.out.println(key));
     }
-}
+   /* void searchPersonInMultipleAddressBook(){
+        System.out.println("enter name of the city or state");
+        String inputcityOrState = scanner.next();*/
+
+
+
+
+    }
+
