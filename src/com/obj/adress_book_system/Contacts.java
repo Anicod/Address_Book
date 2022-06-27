@@ -48,6 +48,11 @@ public class Contacts {
 
         this.city = city;
     }
+    public String getCity() {
+
+        return city;
+    }
+
 
 
     public void setState(String state) {
@@ -55,6 +60,10 @@ public class Contacts {
         this.state = state;
     }
 
+    public String getState() {
+
+        return state;
+    }
     public void setZipCode(int zipCode) {
 
         this.zipCode = zipCode;

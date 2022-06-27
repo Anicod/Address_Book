@@ -7,9 +7,7 @@ public class AdressBookMain {
 
         while (true) {
             processAddressBook.takeInputChoices();
-
             switch (processAddressBook.choiceOfUsers) {
-
                 case AddressBookActivity.ADD_DETAILS:
                     processAddressBook.addDetails();
                     break;

@@ -1,5 +1,7 @@
 package com.obj.adress_book_system;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class AddressBookActivity {
 
@@ -142,16 +144,30 @@ public class AddressBookActivity {
     }
 
     Contacts isSearchedMatched() {
+
+        searchPersonInMultipleAddressBook();
         System.out.println("Enter the address book name first. \n ");
         displayAllAddressBooksName();
         System.out.println("entered Your choice: ");
         String bookName = scanner.next();
         System.out.println("entered first name of the person");
         String inputName = scanner.next();
-       if( multipleAddressBook.get(bookName).stream().iterator().next().getFirstName().equals(inputName)){
-           System.out.println("match found");
-       }
-       return multipleAddressBook.get(bookName).stream().iterator().next();
+        ArrayList<Contacts> contacts = multipleAddressBook.get(bookName);
+        Stream<Contacts> stream = contacts.stream();
+        System.out.println(stream);
+        Iterator<Contacts> iterator = stream.iterator();
+        System.out.println(iterator);
+        Contacts next = iterator.next();
+        System.out.println(next);
+        String firstName = next.getFirstName();
+        System.out.println(firstName);
+       boolean b = firstName.equals(inputName);
+
+
+        if (b) {
+            System.out.println("match found");
+        }
+        return multipleAddressBook.get(bookName).stream().iterator().next();
     }
 
 
@@ -182,12 +198,22 @@ public class AddressBookActivity {
     void displayAllAddressBooksName() {
         multipleAddressBook.forEach((key, value) -> System.out.println(key));
     }
-   /* void searchPersonInMultipleAddressBook(){
+
+    void searchPersonInMultipleAddressBook() {
         System.out.println("enter name of the city or state");
-        String inputcityOrState = scanner.next();*/
+        String inputCityOrState = scanner.next();
+        Set<Map.Entry<String, ArrayList<Contacts>>> entries = multipleAddressBook.entrySet();
+        Stream<Map.Entry<String, ArrayList<Contacts>>> stream = entries.stream();
+        stream.forEach(a -> System.out.println(a.getValue()));
 
-
-
-
+            if(multipleAddressBook.entrySet().stream().iterator().next().getValue().iterator().next().getCity().equals(inputCityOrState)){
+                 List<Map.Entry<String, ArrayList<Contacts>>> collect = multipleAddressBook.entrySet().stream().filter(contact -> contact.getValue().iterator().next().getCity().equals(inputCityOrState)).collect(Collectors.toList());
+                System.out.println("\n");
+             System.out.println(collect);}
+            else if (multipleAddressBook.entrySet().stream().iterator().next().getValue().iterator().next().getState().equals(inputCityOrState)) {
+                List<Map.Entry<String, ArrayList<Contacts>>> collect = multipleAddressBook.entrySet().stream().filter(contact -> contact.getValue().iterator().next().getState().equals(inputCityOrState)).collect(Collectors.toList());
+                System.out.println("\n");
+                System.out.println(collect);
+            }
     }
-
+}
