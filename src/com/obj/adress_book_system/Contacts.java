@@ -79,6 +79,11 @@ public class Contacts {
         this.email = email;
     }
 
+    public void resetContact(String firstName, String lastName, String Address, String City, String State, int zipCode, long phoneNumber, String email){
+
+        this.firstName = firstName; this.lastName = lastName; this.address = Address; this.city = City; this.state = State; this.zipCode = zipCode; this.phoneNumber = phoneNumber; this.email = email;
+    }
+
     @Override
     public String toString() {
         return " First Name   = " + firstName +
